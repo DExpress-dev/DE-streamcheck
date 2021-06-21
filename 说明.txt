@@ -1,0 +1,57 @@
+测流程序包含
+程序文件：check_stream（主程序）、wechat（微信通知程序）
+脚本文件：start_check.sh、stop_check.sh
+配置文件：urls.ini、config.ini
+
+1、配置文件
+config.ini文件
+[common]
+#同一个流，同样错误类型报警的时间间隔，时间间隔内只报一次,单位：秒
+alarm_interval=300
+
+[stream]
+url_file=urls.ini
+#ts片时长范围，用来筛除异常值, 格式：最小值,最大值 单位：秒
+duration_range=2,30
+#index.m3u8 bandwidth option(max, min, all, or a specified number)
+bandwidth=max
+#是否检查m3u8文件sequence连续性，>0 检查 其它 不检查
+check_sequence=1
+
+[download]
+timeout_min=5
+retry_count=3
+retry_wait=3
+
+[wechat]
+corp_id=wwdaae54803f75694b
+corp_secret=r2YqOIHrP2kxf-Y1uc9hVlI8vhIY2Om6GIPT0_NRHaA
+agent_id=1000016
+#多用户支持，用;分隔
+user=ZhouJun
+
+urls.ini文件
+例：
+[stream1]
+#流地址
+url=http://yifenxiang2.starschinalive.com/27/3-1128/index.m3u8
+#流名称
+name=CCTV1-蛇口
+delay=10
+#同config.ini中该字段意义，此处配置值覆盖config.ini中的值
+check_sequence=1
+#防盗链服务器ip端口
+antileech=42.159.235.234:80
+#是否只下载m3u8，>0 是 其它 不是
+only_m3u8=1
+
+一个节点对应一路流
+url	拉流地址
+
+2、添加脚本执行权限
+chmod +x start_check.sh
+
+3、运行程序前，先查看是否是最新版本
+查看版本	./check_stream -V
+启动程序	./start_check.sh
+停止程序	./stop_check.sh
