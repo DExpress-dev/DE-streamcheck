@@ -17,6 +17,7 @@ type NotifyContext struct {
 
 type NotifyMessage struct {
 	Key     string
+	Name    string
 	ErrCode int
 	Msg     string
 
