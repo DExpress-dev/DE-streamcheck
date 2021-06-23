@@ -1,1 +1,1 @@
-# DEStreamCheck
+# DE-streamcheck
